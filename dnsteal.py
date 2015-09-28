@@ -55,13 +55,21 @@ def save_to_file(r_data, z):
 
 	        print "%s[ Info ]%s Saving recieved bytes to './%s'" % (c["y"], c["e"], fname)
 
-		f = open(fname, "wb")
-	
+		try:
+			f = open(fname, "wb")
+		except:
+			print "%s[Error]%s Opening file '%s'" % (c["r"], c["e"], fname)
+			exit(1)
+
 		if (z):
 			f.write(flatdata)
 		else:
-			f.write(binascii.unhexlify(flatdata))
-	
+			try:
+				f.write(binascii.unhexlify(flatdata))
+			except:
+				print "%s[Error]%s Data recieved for file '%s' does not look like hex-encoded data." % (c["r"], c["e"], fname)
+				print "%s[Error]%s Exiting..." % (c["r"], c["e"])
+				exit(1)
 		f.close()
 
 		print "%s[md5sum]%s '%s'" % (c["g"], c["e"], hashlib.md5(open(fname, "r").read()).hexdigest())
@@ -117,6 +125,10 @@ if __name__ == '__main__':
 			p=DNSQuery(data)
 			udp.sendto(p.request(ip), addr)
 			print 'Request: %s -> %s' % (p.data_text, ip)
+
+			if ".." in p.data_text in key or "/" in p.data_text:
+				print "%s[Error]%s Filename or data should not contain '..' or '/'\n%s[Error]%s Sorry, exiting..." % (c["r"], c["e"], c["r"], c["e"])
+				exit(1)
 
 			fname = p.data_text.split(".")[1]
 			if fname not in r_data:
