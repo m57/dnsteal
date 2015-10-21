@@ -17,20 +17,20 @@ See help below:
 
 If you do not understand the help, then just use the program with default options!
 
-```python
-# python dnsteal.py 127.0.0.1 -z -v
+```bash
+python dnsteal.py 127.0.0.1 -z -v
 ```
 
 This one would send 45 bytes per subdomain, of which there are 4 in the query. 15 bytes reserved for filename at the end.
 
-```python
-# python dnsteal.py 127.0.0.1 -z -v -b 45 -s 4 -f 15
+```bash
+python dnsteal.py 127.0.0.1 -z -v -b 45 -s 4 -f 15
 ```
 
 This one would leave no space for filename.
 
-```python
-# python dnsteal.py 127.0.0.1 -z -v -b 63 -s 4 -f 0
+```bash
+python dnsteal.py 127.0.0.1 -z -v -b 63 -s 4 -f 0
 ```
 
 ~x90
