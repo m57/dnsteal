@@ -203,7 +203,7 @@ if __name__ == '__main__':
 	try:
 		udp.bind((ip,53))
 	except:
-		print "%s[Error]%s Cannot bind to address %s:53" % (c["r"], c["e"])
+		print "%s[Error]%s Cannot bind to address %s:53" % (c["r"], c["e"], ip)
 		exit(1)
 
 	print "%s[+]%s DNS listening on '%s:53'" % (c["g"], c["e"], ip)
