@@ -192,7 +192,7 @@ if __name__ == '__main__':
 	if "-v" in sys.argv:
 		v = True
 
-	if (b > 63) or ((b * s) > 253) or ((b * s) + flen > 253):
+	if ( (b > 63) or ( (b * s) > 253) or ( ((b * s) + flen) > 253):
 		usage("%s[Error]%s Entire query cannot be > 253. Read help (-h)" % (c["r"], c["e"]))
 	
 	############################################################################################
