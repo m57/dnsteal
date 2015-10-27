@@ -6,7 +6,5 @@ RUN apk --update add python
 COPY . /app
 WORKDIR /app
 
-EXPOSE 52
-
 ENTRYPOINT ["python"]
 CMD ["dnsteal.py", "0.0.0.0"]
