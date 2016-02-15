@@ -45,3 +45,7 @@ Run it as a daemon:
 ```bash
 docker run -d -p 53:53 dnsteal
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/arthurbarros/dnsteal/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
