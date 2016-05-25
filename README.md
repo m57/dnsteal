@@ -4,8 +4,7 @@ This is a fake DNS server that allows you to stealthily extract files from a vic
 
 Below are a couple of different images showing examples of multiple file transfer and single verbose file transfer:
 
-![Alt text](https://www.slimgr.com/images/2015/10/21/e5c21fddae495743f901804091d5b220.png)
-![Alt text](https://www.slimgr.com/images/2015/10/21/96dc39537a81b3f4231cb8ef89a6895b.png)
+![Alt text](http://i.imgur.com/nJsoAMv.png)
 
 * Support for multiple files
 * Gzip compression supported
@@ -13,7 +12,7 @@ Below are a couple of different images showing examples of multiple file transfe
 
 See help below:
 
-![Alt text](https://www.slimgr.com/images/2015/10/21/b8a6d39ea2ff93ee7d893ed5095a87a4.png)
+![Alt text](http://i.imgur.com/GT5SV2L.png)
 
 If you do not understand the help, then just use the program with default options!
 
