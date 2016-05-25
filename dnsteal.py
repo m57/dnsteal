@@ -124,7 +124,6 @@ def usage(str=""):
 	print "\t%s 127.0.0.1 -z -s 4 -b 63 -f  1\t4 subdomains, 63 bytes => (62 * 4 = 248 bytes) + (4 * '.' = 252). Filename =>  1 byte(s)" % sys.argv[0]
 	print
 	print str
-	exit(1)
 
 def p_cmds(s,b,ip,z):
 
@@ -172,15 +171,16 @@ if __name__ == '__main__':
 	v 	= False
 	regx_ip = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
 
-
-	if len(sys.argv) < 2:
+	if "-h" in sys.argv or len(sys.argv) < 2:
 		usage()
-
+		exit(1)		
+	
 	ip = sys.argv[1]
 
 	if re.match(regx_ip, ip) == None:
 		usage("%s[Error]%s First argument must be listen address." % (c["r"], c["e"]))
-
+		exit(1)
+			
 	if "-z" in sys.argv:
 		z = True
 	if "-s" in sys.argv:
