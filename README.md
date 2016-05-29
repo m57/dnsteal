@@ -32,4 +32,18 @@ This one would leave no space for filename.
 python dnsteal.py 127.0.0.1 -z -v -b 63 -s 4 -f 0
 ```
 
-~x90
+
+**Using Docker**
+
+First build the image:
+```bash
+docker build -t dnsteal .
+```
+
+Run it as a daemon:
+```bash
+docker run -d -p 53:53 dnsteal
+```
+
+
+
