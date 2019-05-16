@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#  ~ \x90
+#  g0dmode
 ########################
 #
 # TODO (in order of priority):
