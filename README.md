@@ -31,5 +31,3 @@ This one would leave no space for filename.
 ```bash
 python dnsteal.py 127.0.0.1 -z -v -b 63 -s 4 -f 0
 ```
-
-~x90
