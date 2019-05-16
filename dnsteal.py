@@ -6,7 +6,6 @@
 #
 # * Windows PowerShell command variant (This will be 2.1 coming soon). 
 # * fix bugs when no filename is entered (i know it exists just cba atm)
-# * possibly implement hex transfer
 #
 
 import socket
